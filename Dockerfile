@@ -3,8 +3,7 @@
 #
 # https://aws.amazon.com/blogs/aws/dynamodb-local-for-desktop-development/
 #
-FROM openjdk:7-jre
-MAINTAINER Dean Giberson <dean@deangiberson.com>
+FROM java:8-alpine
 
 # Create working space
 WORKDIR /var/dynamodb_wd
