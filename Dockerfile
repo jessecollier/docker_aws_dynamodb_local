@@ -5,8 +5,11 @@
 #
 FROM java:8-alpine
 
+ARG BASE_DIR=/dynamodb
+ARG DB_PATH=$BASE_DIR/db
+
 # Create working space
-WORKDIR /var/dynamodb_wd
+WORKDIR $BASE_DIR
 
 # Default port for DynamoDB Local
 EXPOSE 8000
@@ -18,8 +21,8 @@ RUN apk --no-cache add ca-certificates openssl && update-ca-certificates && \
     rm -f /tmp/dynamodb_local_latest
 
 # Default command for image
-ENTRYPOINT ["/usr/bin/java", "-Djava.library.path=.", "-jar", "DynamoDBLocal.jar", "-dbPath", "/var/dynamodb_local"]
+ENTRYPOINT ["/usr/bin/java", "-Djava.library.path=$BASE_DIR", "-jar", "DynamoDBLocal.jar", "-dbPath", "$DB_PATH" ]
 CMD ["-port", "8000"]
 
 # Add VOLUMEs to allow backup of config, logs and databases
-VOLUME ["/var/dynamodb_local", "/var/dynamodb_wd"]
+VOLUME ["$DB_PATH", "$BASE_DIR"]
