@@ -5,8 +5,8 @@
 #
 FROM java:8-alpine
 
-ARG BASE_DIR=/dynamodb
-ARG DB_PATH=$BASE_DIR/db
+ENV BASE_DIR=/dynamodb
+ENV DB_PATH=$BASE_DIR/db
 
 # Create working space
 WORKDIR $BASE_DIR
